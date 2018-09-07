@@ -1,0 +1,69 @@
+<!doctype html>
+
+<html>
+<head>
+  <title>PennApps Sign In</title>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+  <nav>
+    <div class="nav-wrapper">
+      <a class="brand-logo center">PennApps Admin Page</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+      </ul>
+    </div>
+  </nav>
+  <br/>         
+  <div class="container">
+    <div class="row">
+      <table>
+        <thead>
+          <tr>
+            <th>School Name</th>
+            <th>Student Name</th>
+          </tr>
+        </thead>
+
+        <tbody id="tableBody">
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+  <script>
+
+
+
+      $.ajax({
+        url: 'https://fd2252f5f21c625eda0807191d1b8049.resindevice.io/directory',
+        type: 'GET',
+        contentType: 'application/json',
+        success: function( data ){
+          var tableBody = ""
+          Object.keys(data).forEach(function(key) {
+            var currentSchool =  key
+            var currentStudents = data[key]
+            for (var i in currentStudents) {
+              tableBody += `<tr><td>${currentSchool}</td><td>${currentStudents[i]}</td></tr>`
+            }
+          });
+          document.getElementById('tableBody').innerHTML = tableBody
+        },
+        error: function( error ){
+          M.toast({html: `Something went wrong`})
+        }
+      });
+    
+
+  </script>
+</body>
+</html>
+
+
+
+    
+            
